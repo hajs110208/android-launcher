@@ -26,6 +26,7 @@ object BaseRobTopActivity {
 
     lateinit var me: WeakReference<Activity>
     private var shouldResumeSound = true
+    private var hdrEnabled = false
 
     fun setCurrentActivity(currentActivity: Activity) {
         me = WeakReference(currentActivity)
@@ -143,6 +144,36 @@ object BaseRobTopActivity {
         }
 
         return display!!.refreshRate
+    }
+
+    @JvmStatic
+    fun isHDRSupported(): Boolean {
+        val context = me.get() ?: return false
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val display = context.display
+            display?.isHdrSdrRatioSupported == true
+        } else {
+            false
+        }
+    }
+
+    @JvmStatic
+    fun enableHDR(): Boolean {
+        if (!isHDRSupported()) {
+            return false
+        }
+        hdrEnabled = true
+        return true
+    }
+
+    @JvmStatic
+    fun disableHDR() {
+        hdrEnabled = false
+    }
+
+    @JvmStatic
+    fun isHDREnabled(): Boolean {
+        return hdrEnabled
     }
 
     // Everyplay doesn't even exist anymore lol
