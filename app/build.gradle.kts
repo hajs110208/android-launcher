@@ -243,12 +243,12 @@ val fullDownloadTask = tasks.register<MergeGeodeFilesTask>("downloadGeodeFull") 
 }
 
 android {
-    compileSdk = 37
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.geode.launcher"
         minSdk = 23
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 30
         versionName = "1.8.0"
 
